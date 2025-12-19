@@ -3,50 +3,57 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Only For You ❤️</title>
+<title>Happy Birthday Madhu ❤️</title>
 
 <style>
-/* ---------- BODY ---------- */
+/* ---------- GLOBAL ---------- */
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
   height: 100vh;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: background 1s ease;
 }
+
+/* ---------- BACKGROUNDS ---------- */
+.bg-lock { background: linear-gradient(135deg, #ff9a9e, #fad0c4); }
+.bg-cake { background: linear-gradient(135deg, #fbc2eb, #a6c1ee); }
+.bg-msg  { background: linear-gradient(135deg, #fddb92, #d1fdff); }
+.bg-love { background: linear-gradient(135deg, #c471ed, #f64f59); }
 
 /* ---------- FALLING HEARTS ---------- */
 .heart {
   position: fixed;
   top: -10px;
-  color: rgba(255,255,255,0.7);
   font-size: 18px;
   animation: fall linear infinite;
+  opacity: 0.7;
   z-index: 0;
 }
-
 @keyframes fall {
-  to {
-    transform: translateY(110vh);
-    opacity: 0;
-  }
+  to { transform: translateY(110vh); opacity: 0; }
 }
 
 /* ---------- CARD ---------- */
 .card {
   width: 90%;
-  max-width: 360px;
-  background: rgba(255,255,255,0.22);
+  max-width: 380px;
+  background: rgba(255,255,255,0.25);
   backdrop-filter: blur(14px);
-  border-radius: 26px;
+  border-radius: 28px;
   padding: 28px 22px;
   text-align: center;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+  box-shadow: 0 22px 45px rgba(0,0,0,0.3);
   color: #fff;
   z-index: 2;
+  animation: pop 0.6s ease;
+}
+@keyframes pop {
+  from { transform: scale(0.95); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
 }
 
 /* ---------- TEXT ---------- */
@@ -56,7 +63,6 @@ body {
     0 0 25px #ff9acb,
     0 0 45px #ff4e78;
 }
-
 p {
   font-size: 16px;
   line-height: 1.7;
@@ -72,73 +78,67 @@ input, button {
   border: none;
   font-size: 15px;
 }
-
 button {
   background: #fff;
   color: #ff4e78;
   cursor: pointer;
   box-shadow: 0 8px 20px rgba(0,0,0,0.25);
 }
+button:active {
+  transform: scale(0.96);
+}
 
 /* ---------- CAKE ---------- */
 .cake {
-  margin: 22px auto;
-  width: 140px;
+  margin: 26px auto;
+  width: 220px;
   position: relative;
 }
-
 .layer {
-  height: 35px;
-  background: #ffb6c1;
-  border-radius: 12px;
+  height: 45px;
+  border-radius: 16px;
 }
-
-.layer.top {
-  background: #ffd1dc;
-  margin-bottom: 6px;
-}
+.layer.top { background: #ffe066; margin-bottom: 6px; }
+.layer.mid { background: #ff8fab; margin-bottom: 6px; }
+.layer.bot { background: #ffb703; }
 
 .candle {
-  width: 10px;
-  height: 26px;
+  width: 12px;
+  height: 34px;
   background: #fff;
   position: absolute;
-  top: -26px;
-  border-radius: 4px;
+  top: -34px;
+  border-radius: 6px;
 }
-
 .flame {
-  width: 10px;
-  height: 14px;
-  background: orange;
+  width: 12px;
+  height: 16px;
+  background: radial-gradient(circle, yellow, orange, red);
   border-radius: 50%;
   position: absolute;
-  top: -14px;
+  top: -16px;
   animation: flicker 0.8s infinite;
 }
-
 @keyframes flicker {
   50% { transform: scale(1.2); }
 }
 
 /* ---------- HIDDEN ---------- */
-.hidden {
-  display: none;
-}
+.hidden { display: none; }
 </style>
 </head>
 
-<body>
+<body class="bg-lock">
 
 <!-- ❤️ FALLING HEARTS -->
 <script>
-for (let i = 0; i < 25; i++) {
+for (let i = 0; i < 30; i++) {
   const h = document.createElement("div");
   h.className = "heart";
   h.innerHTML = "❤️";
   h.style.left = Math.random() * 100 + "vw";
   h.style.animationDuration = (Math.random() * 5 + 5) + "s";
-  h.style.fontSize = (Math.random() * 10 + 14) + "px";
+  h.style.fontSize = (Math.random() * 10 + 16) + "px";
   document.body.appendChild(h);
 }
 </script>
@@ -146,27 +146,28 @@ for (let i = 0; i < 25; i++) {
 <!-- 🔐 LOCK -->
 <div class="card" id="lockScreen">
   <h2>🔐 Only for you ❤️</h2>
-  <p>Idhu ellarukkum illa…<br>unakku mattum 🤍</p>
+  <p>Idhu ellarukkum illa…<br>**MADHU** unakku mattum 🤍</p>
   <input id="pwd" type="password" placeholder="Password">
   <button onclick="unlock()">Unlock 💖</button>
 </div>
 
-<!-- 🎂 CAKE SCENE -->
+<!-- 🎂 CAKE -->
 <div class="card hidden" id="cakeScene">
   <h2 class="glow">Happy Birthday<br>MADHU ❤️</h2>
 
   <p>
-    Innaiku oru special day…<br>
-    Oru wish panniko 🎂
+    Innaiku romba special day 🎉<br>
+    Oru wish panniko…
   </p>
 
   <div class="cake">
     <div class="layer top"></div>
-    <div class="layer"></div>
+    <div class="layer mid"></div>
+    <div class="layer bot"></div>
 
-    <div class="candle" style="left:30px"><div class="flame"></div></div>
-    <div class="candle" style="left:65px"><div class="flame"></div></div>
-    <div class="candle" style="left:100px"><div class="flame"></div></div>
+    <div class="candle" style="left:40px"><div class="flame"></div></div>
+    <div class="candle" style="left:95px"><div class="flame"></div></div>
+    <div class="candle" style="left:150px"><div class="flame"></div></div>
   </div>
 
   <button onclick="blow()">Blow the candles 💨</button>
@@ -175,8 +176,8 @@ for (let i = 0; i < 25; i++) {
 <!-- 💌 MESSAGE -->
 <div class="card hidden" id="messageScene">
   <p>
-    Nee pirandha naal-naala…<br>
-    Innaiku romba special 🤍
+    MADHU…<br>
+    Nee pirandha naal-naala innaiku romba special 🤍
   </p>
 
   <p>
@@ -186,40 +187,53 @@ for (let i = 0; i < 25; i++) {
 
   <p>
     Indha varusham unakku<br>
-    neraya sandhosham,<br>
     neraya sirippu,<br>
+    neraya sandhosham,<br>
     neraya peace kedaikanum ✨
   </p>
 
   <button onclick="reveal()">One last thing ❤️</button>
 </div>
 
-<!-- ❤️ FINAL REVEAL -->
+<!-- ❤️ FINAL -->
 <div class="card hidden" id="loveScene">
   <h2 class="glow">I LOVE YOU ❤️</h2>
   <p>
-    Indha words simple-aa irundhaalum…<br>
+    Idhu simple words-a irundhaalum…<br>
     idhula irukkura feeling romba real 🤍
   </p>
 </div>
 
 <script>
+function sparkle() {
+  document.body.style.transform = "scale(1.02)";
+  setTimeout(() => document.body.style.transform = "scale(1)", 200);
+}
+
 function unlock() {
-  if (document.getElementById("pwd").value === "onlyforyou") {
+  if (pwd.value === "onlyforyou") {
+    sparkle();
     lockScreen.classList.add("hidden");
     cakeScene.classList.remove("hidden");
+    document.body.className = "bg-cake";
   } else alert("Idhu unakku mattum 😌");
 }
 
 function blow() {
   document.querySelectorAll(".flame").forEach(f => f.style.display = "none");
+  sparkle();
   cakeScene.classList.add("hidden");
-  setTimeout(() => messageScene.classList.remove("hidden"), 600);
+  setTimeout(() => {
+    messageScene.classList.remove("hidden");
+    document.body.className = "bg-msg";
+  }, 600);
 }
 
 function reveal() {
+  sparkle();
   messageScene.classList.add("hidden");
   loveScene.classList.remove("hidden");
+  document.body.className = "bg-love";
 }
 </script>
 
