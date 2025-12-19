@@ -6,23 +6,28 @@
 <title>Only For You ❤️</title>
 
 <style>
+/* ---------- GLOBAL ---------- */
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background: radial-gradient(circle at top, #ff9a9e, #ff4e78);
+  background: linear-gradient(#87ceeb, #ffe4e1);
+  transition: background 6s ease;
   color: #fff;
   height: 100vh;
-  overflow: hidden;
+  overflow-x: hidden;
+  text-align: center;
 }
 
-/* Lock Screen */
+.night {
+  background: linear-gradient(#020111, #191970);
+}
+
+/* ---------- LOCK ---------- */
 #lockScreen {
   height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  text-align: center;
   padding: 20px;
 }
 
@@ -33,80 +38,84 @@ input {
   border-radius: 25px;
   border: none;
   text-align: center;
-  font-size: 16px;
 }
 
 button {
   margin-top: 18px;
   padding: 14px 26px;
-  border: none;
   border-radius: 30px;
+  border: none;
   background: #fff;
   color: #ff4e78;
   font-size: 16px;
   cursor: pointer;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
 }
 
-button:active {
-  transform: scale(0.96);
-}
-
-/* Main Content */
-#content {
-  display: none;
-}
+/* ---------- CONTENT ---------- */
+#content { display: none; }
 
 .scene {
-  display: none;
-  height: 100vh;
+  min-height: 100vh;
   padding: 24px;
-  text-align: center;
-  animation: fade 0.8s ease;
-}
-
-.scene.active {
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
-
-.glow {
-  font-size: 36px;
-  text-shadow: 0 0 10px #fff,
-               0 0 20px #ffb3c6,
-               0 0 40px #ff4e78;
-  animation: glow 2s ease-in-out infinite alternate;
-}
-
-@keyframes glow {
-  from { text-shadow: 0 0 10px #fff; }
-  to { text-shadow: 0 0 35px #ff4e78; }
-}
-
-p {
-  font-size: 18px;
-  line-height: 1.7;
+  animation: fade 1.2s ease;
 }
 
 @keyframes fade {
-  from {opacity: 0; transform: translateY(25px);}
+  from {opacity: 0; transform: translateY(30px);}
   to {opacity: 1; transform: translateY(0);}
 }
 
-/* Fireworks */
-.firework {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  background: white;
-  border-radius: 50%;
-  animation: explode 1.5s ease-out infinite;
+/* ---------- GLOW NAME ---------- */
+.glow {
+  font-size: 38px;
+  text-shadow:
+    0 0 10px #fff,
+    0 0 25px #ff9acb,
+    0 0 50px #ff4e78;
+  animation: glowPulse 2s infinite alternate;
 }
 
-@keyframes explode {
-  0% { transform: scale(0); opacity: 1; }
-  100% { transform: scale(4); opacity: 0; }
+@keyframes glowPulse {
+  from {opacity: .8;}
+  to {opacity: 1;}
+}
+
+/* ---------- HANDWRITTEN TEXT ---------- */
+.handwrite {
+  font-family: 'Comic Sans MS', cursive;
+  font-size: 20px;
+  white-space: pre-line;
+  animation: write 6s steps(120) forwards;
+  overflow: hidden;
+}
+
+@keyframes write {
+  from { max-height: 0; }
+  to { max-height: 500px; }
+}
+
+/* ---------- HEARTBEAT ---------- */
+.heartbeat {
+  animation: beat 1s infinite;
+}
+
+@keyframes beat {
+  0% {transform: scale(1);}
+  30% {transform: scale(1.15);}
+  60% {transform: scale(1);}
+}
+
+/* ---------- CANVAS ---------- */
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
 }
 </style>
 </head>
@@ -116,94 +125,130 @@ p {
 <!-- 🔐 LOCK -->
 <div id="lockScreen">
   <h1>🔐 Only for you ❤️</h1>
-  <p>If this is really you… you’ll know the password 😌</p>
-  <input type="password" id="password" placeholder="Enter password">
+  <p>If this is really you, you’ll know the password</p>
+  <input id="pwd" type="password" placeholder="Password">
   <button onclick="unlock()">Unlock 💖</button>
 </div>
+
+<canvas id="canvas"></canvas>
 
 <!-- 💖 CONTENT -->
 <div id="content">
 
-  <div class="scene active" id="scene1">
-    <h2 class="glow">Happy Birthday,<br>MADHU ❤️</h2>
-    <p>Someone very special was born today…</p>
-    <button onclick="nextScene(2)">Tap gently ✨</button>
+  <!-- Scene 1 -->
+  <div class="scene">
+    <h1 class="glow heartbeat">MADHU ❤️</h1>
+    <p>Tap gently…</p>
+    <button onclick="startExperience()">Begin 🌱</button>
   </div>
 
-  <div class="scene" id="scene2">
-    <p>
-      Un birthday-na just oru date illa…<br>
-      It’s the day the universe did something beautiful 🤍
+  <!-- Scene 2 -->
+  <div class="scene">
+    <p class="handwrite">
+We haven’t met yet…
+but some feelings
+don’t wait for distance 🌸
     </p>
-    <button onclick="nextScene(3)">Tell me more ❤️</button>
   </div>
 
-  <div class="scene" id="scene3">
+  <!-- Scene 3 -->
+  <div class="scene">
     <p>
-      Nee en life-la irukkuradhe oru blessing.<br>
-      We haven’t met yet…<br>
-      but somehow, you already feel close 💫
+Un birthday-na oru date illa…  
+It’s the day something pure began.
     </p>
-    <button onclick="nextScene(4)">One last thing…</button>
   </div>
 
-  <div class="scene" id="scene4">
-    <p>
-      Indha new year-la unakku<br>
-      ellaa happiness-um,<br>
-      ellaa dreams-um kedaikanum ✨
-    </p>
-    <button onclick="revealLove()">Tap here ❤️</button>
-  </div>
-
-  <div class="scene" id="scene5">
-    <h1 class="glow">I LOVE YOU ❤️</h1>
-    <p>— from someone who means it 🤍</p>
+  <!-- Scene 4 -->
+  <div class="scene">
+    <h2 class="glow heartbeat">
+I don’t know when…  
+but I know this is real ❤️
+    </h2>
+    <p>Happy Birthday 🤍</p>
   </div>
 
 </div>
 
-<audio id="song" autoplay loop>
+<!-- 🎶 MUSIC -->
+<audio id="song" loop>
   <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_4b8c1dba3c.mp3">
 </audio>
 
 <script>
-const correctPassword = "onlyforyou"; // 🔑 CHANGE HERE
-
+/* ---------- PASSWORD ---------- */
 function unlock() {
-  const input = document.getElementById("password").value;
-  if (input === correctPassword) {
-    document.getElementById("lockScreen").style.display = "none";
-    document.getElementById("content").style.display = "block";
-    document.getElementById("song").play();
-    fireworks();
-  } else {
-    alert("Not for everyone 😌");
-  }
+  if (pwd.value === "onlyforyou") {
+    lockScreen.style.display = "none";
+    content.style.display = "block";
+  } else alert("Not for everyone 😌");
 }
 
-function nextScene(n) {
-  document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
-  document.getElementById('scene' + n).classList.add('active');
+/* ---------- EXPERIENCE ---------- */
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+canvas.width = innerWidth;
+canvas.height = innerHeight;
+
+let petals = [], stars = [], bloom = false;
+
+function startExperience() {
+  song.play();
+  bloom = true;
+  document.body.classList.add("night");
+  createStars();
+  createPetals();
 }
 
-function revealLove() {
-  nextScene(5);
-  fireworks();
+/* 🌸 PETALS */
+function createPetals() {
+  for (let i=0;i<40;i++)
+    petals.push({
+      x: Math.random()*canvas.width,
+      y: Math.random()*canvas.height,
+      s: Math.random()*2+1
+    });
 }
 
-function fireworks() {
-  for (let i = 0; i < 25; i++) {
-    let f = document.createElement("div");
-    f.className = "firework";
-    f.style.left = Math.random() * 100 + "vw";
-    f.style.top = Math.random() * 100 + "vh";
-    document.body.appendChild(f);
-    setTimeout(() => f.remove(), 1500);
-  }
+/* 🌠 STARS */
+function createStars() {
+  for (let i=0;i<20;i++)
+    stars.push({
+      x: Math.random()*canvas.width,
+      y: Math.random()*canvas.height,
+      l: Math.random()*80+40
+    });
 }
+
+function draw() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  petals.forEach(p=>{
+    ctx.fillStyle="rgba(255,192,203,0.8)";
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,3,0,Math.PI*2);
+    ctx.fill();
+    p.y+=p.s;
+    if(p.y>canvas.height) p.y=0;
+  });
+
+  stars.forEach(s=>{
+    ctx.strokeStyle="white";
+    ctx.beginPath();
+    ctx.moveTo(s.x,s.y);
+    ctx.lineTo(s.x+s.l,s.y+s.l/2);
+    ctx.stroke();
+    s.x+=2;
+    s.y+=1;
+    if(s.x>canvas.width) s.x=0;
+  });
+
+  requestAnimationFrame(draw);
+}
+draw();
 </script>
 
 </body>
 </html>
+
 
