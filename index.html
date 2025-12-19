@@ -6,122 +6,90 @@
 <title>Happy Birthday Madhu ❤️</title>
 
 <style>
-/* ---------- GLOBAL ---------- */
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
   min-height: 100dvh;
+  background: linear-gradient(180deg, #ffdde1, #ee9ca7);
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  padding-top: 40px;
-  overflow-x: hidden;
-  transition: background 1s ease;
+  align-items: center;
+  overflow: hidden;
+  color: #fff;
 }
 
-/* ---------- BACKGROUNDS ---------- */
-.bg-lock { background: linear-gradient(135deg, #ff9a9e, #fad0c4); }
-.bg-cake { background: linear-gradient(135deg, #fbc2eb, #a6c1ee); }
-.bg-msg  { background: linear-gradient(135deg, #fddb92, #d1fdff); }
-.bg-love { background: linear-gradient(135deg, #c471ed, #f64f59); }
-
-/* ---------- FALLING HEARTS ---------- */
+/* ---------- FLOATING HEARTS ---------- */
 .heart {
   position: fixed;
   top: -10px;
-  font-size: 16px;
-  opacity: 0.7;
+  font-size: 14px;
+  opacity: 0.35;
   animation: fall linear infinite;
-  z-index: 0;
+  pointer-events: none;
 }
 @keyframes fall {
-  to { transform: translateY(120dvh); opacity: 0; }
+  to { transform: translateY(120dvh); }
 }
 
 /* ---------- CARD ---------- */
 .card {
-  width: 92%;
-  max-width: 380px;
-  background: rgba(255,255,255,0.25);
+  width: 90%;
+  max-width: 360px;
+  padding: 26px 22px;
+  border-radius: 24px;
+  background: rgba(255,255,255,0.18);
   backdrop-filter: blur(14px);
-  border-radius: 28px;
-  padding: 28px 22px;
   text-align: center;
-  box-shadow: 0 22px 45px rgba(0,0,0,0.3);
-  color: #fff;
-  z-index: 2;
-  animation: pop 0.5s ease;
+  box-shadow: 0 18px 35px rgba(0,0,0,0.25);
+  animation: fadeUp 0.6s ease;
 }
-@keyframes pop {
-  from { transform: scale(0.96); opacity: 0; }
-  to   { transform: scale(1); opacity: 1; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* ---------- TEXT ---------- */
+h1 {
+  font-size: 26px;
+  margin-bottom: 6px;
+}
 .glow {
   text-shadow:
-    0 0 10px #fff,
-    0 0 25px #ff9acb,
-    0 0 45px #ff4e78;
+    0 0 8px #fff,
+    0 0 20px #ff9acb;
 }
 p {
-  font-size: 16px;
-  line-height: 1.7;
+  font-size: 15px;
+  line-height: 1.6;
   margin-top: 12px;
 }
 
-/* ---------- INPUT & BUTTON ---------- */
-input, button {
-  margin-top: 16px;
+/* ---------- BUTTON ---------- */
+button {
+  margin-top: 18px;
   padding: 12px;
   width: 100%;
-  border-radius: 25px;
+  border-radius: 24px;
   border: none;
+  background: #fff;
+  color: #e75480;
   font-size: 15px;
-}
-button {
-  background: #fff;
-  color: #ff4e78;
   cursor: pointer;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
 }
-button:active { transform: scale(0.96); }
 
-/* ---------- CAKE ---------- */
+/* ---------- CAKE (SVG STYLE) ---------- */
 .cake {
-  margin: 28px auto;
-  width: 240px;
-  position: relative;
-}
-.layer {
-  height: 46px;
-  border-radius: 18px;
-}
-.layer.top { background: #ffe066; margin-bottom: 6px; }
-.layer.mid { background: #ff8fab; margin-bottom: 6px; }
-.layer.bot { background: #ffb703; }
-
-.candle {
-  width: 12px;
-  height: 36px;
-  background: #fff;
-  position: absolute;
-  top: -36px;
-  border-radius: 6px;
+  margin: 18px auto 6px;
+  width: 120px;
 }
 .flame {
-  width: 12px;
-  height: 16px;
-  background: radial-gradient(circle, yellow, orange, red);
-  border-radius: 50%;
-  position: absolute;
-  top: -16px;
-  animation: flicker 0.8s infinite;
+  animation: flicker 1s infinite;
+  transform-origin: center;
 }
 @keyframes flicker {
-  50% { transform: scale(1.25); }
+  50% { transform: scale(1.2); }
 }
 
 /* ---------- HIDDEN ---------- */
@@ -129,12 +97,12 @@ button:active { transform: scale(0.96); }
 </style>
 </head>
 
-<body class="bg-lock">
+<body>
 
-<!-- ❤️ FALLING HEARTS -->
+<!-- ❤️ HEARTS -->
 <script>
-const heartCount = window.innerWidth < 600 ? 14 : 28;
-for (let i = 0; i < heartCount; i++) {
+const hearts = 14;
+for (let i = 0; i < hearts; i++) {
   const h = document.createElement("div");
   h.className = "heart";
   h.innerHTML = "❤️";
@@ -145,33 +113,32 @@ for (let i = 0; i < heartCount; i++) {
 </script>
 
 <!-- 🔐 LOCK -->
-<div class="card" id="lockScreen">
-  <h2>🔐 Only for you ❤️</h2>
-  <p>Idhu ellarukkum illa…<br><strong>MADHU</strong> unakku mattum 🤍</p>
-  <input id="pwd" type="password" placeholder="Password">
+<div class="card" id="lock">
+  <h1>Only for you ❤️</h1>
+  <p>Idhu ellarukkum illa…<br><b>MADHU</b> unakku mattum 🤍</p>
+  <input id="pwd" type="password" placeholder="Password"
+    style="margin-top:14px;padding:12px;width:100%;border-radius:22px;border:none;text-align:center;">
   <button onclick="unlock()">Unlock 💖</button>
 </div>
 
 <!-- 🎂 CAKE -->
 <div class="card hidden" id="cakeScene">
-  <h2 class="glow">Happy Birthday<br>MADHU ❤️</h2>
-  <p>Innaiku romba special day 🎉<br>Oru wish panniko…</p>
+  <h1 class="glow">Happy Birthday<br>MADHU ❤️</h1>
+  <p>Innaiku romba special day 🎂<br>Oru wish panniko…</p>
 
-  <div class="cake">
-    <div class="layer top"></div>
-    <div class="layer mid"></div>
-    <div class="layer bot"></div>
+  <!-- Minimal Elegant Cake -->
+  <svg class="cake" viewBox="0 0 120 120">
+    <rect x="20" y="60" width="80" height="35" rx="10" fill="#ffd1dc"/>
+    <rect x="30" y="40" width="60" height="25" rx="8" fill="#ffe4ec"/>
+    <rect x="55" y="20" width="10" height="20" fill="#fff"/>
+    <circle class="flame" cx="60" cy="15" r="5" fill="orange"/>
+  </svg>
 
-    <div class="candle" style="left:50px"><div class="flame"></div></div>
-    <div class="candle" style="left:110px"><div class="flame"></div></div>
-    <div class="candle" style="left:170px"><div class="flame"></div></div>
-  </div>
-
-  <button onclick="blow()">Blow the candles 💨</button>
+  <button onclick="blow()">Blow the candle 💨</button>
 </div>
 
 <!-- 💌 MESSAGE -->
-<div class="card hidden" id="messageScene">
+<div class="card hidden" id="msg">
   <p>
     MADHU…<br>
     Nee pirandha naal-naala innaiku romba special 🤍
@@ -190,8 +157,8 @@ for (let i = 0; i < heartCount; i++) {
 </div>
 
 <!-- ❤️ FINAL -->
-<div class="card hidden" id="loveScene">
-  <h2 class="glow">I LOVE YOU ❤️</h2>
+<div class="card hidden" id="love">
+  <h1 class="glow">I LOVE YOU ❤️</h1>
   <p>
     Idhu simple words-a irundhaalum…<br>
     idhula irukkura feeling romba real 🤍
@@ -199,36 +166,22 @@ for (let i = 0; i < heartCount; i++) {
 </div>
 
 <script>
-function forceRepaint() {
-  document.body.style.display = "none";
-  document.body.offsetHeight;
-  document.body.style.display = "";
-}
-
 function unlock() {
   if (pwd.value === "onlyforyou") {
-    lockScreen.classList.add("hidden");
+    lock.classList.add("hidden");
     cakeScene.classList.remove("hidden");
-    document.body.className = "bg-cake";
-    forceRepaint();
   } else alert("Idhu unakku mattum 😌");
 }
 
 function blow() {
-  document.querySelectorAll(".flame").forEach(f => f.style.display = "none");
+  document.querySelector(".flame").style.display = "none";
   cakeScene.classList.add("hidden");
-  document.body.className = "bg-msg";
-  setTimeout(() => {
-    messageScene.classList.remove("hidden");
-    forceRepaint();
-  }, 400);
+  setTimeout(() => msg.classList.remove("hidden"), 400);
 }
 
 function reveal() {
-  messageScene.classList.add("hidden");
-  loveScene.classList.remove("hidden");
-  document.body.className = "bg-love";
-  forceRepaint();
+  msg.classList.add("hidden");
+  love.classList.remove("hidden");
 }
 </script>
 
